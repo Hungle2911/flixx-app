@@ -2,13 +2,13 @@ import React from 'react'
 import BackToHomepageBtn from './BackToHomepageBtn'
 const MovieDetails = () => {
   return (
-    <section class="container">
+    <section className="container">
       <BackToHomepageBtn />
     <div id="movie-details">
   <div className="details-top">
     <div>
       <img
-        src="images/no-image.jpg"
+        src="assets/no-image.jpg"
         className="card-img-top"
         alt="Movie Title"
       />
