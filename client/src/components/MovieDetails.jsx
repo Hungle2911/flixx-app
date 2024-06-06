@@ -1,6 +1,23 @@
-import React from 'react'
+import React, { useState, usePar, useEffect } from 'react'
+import { useParams } from 'react-router-dom';
 import BackToHomepageBtn from './BackToHomepageBtn'
+import API from '../api/axios.config'
 const MovieDetails = () => {
+  const [movieDetailsData, setMovieDetailsData] = useState()
+  const {movieId} = useParams()
+  const getMovieDetails = async () => {
+    try {
+      const response = await API.get(`movie/${movieId}`)
+      // console.log(response.data);
+      const data = await response.data
+      setMovieDetailsData(data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  useEffect(() => {
+    getMovieDetails()
+  }, [])
   return (
     <section className="container">
       <BackToHomepageBtn />
@@ -8,7 +25,7 @@ const MovieDetails = () => {
   <div className="details-top">
     <div>
       <img
-        src="assets/no-image.jpg"
+        src={`https://image.tmdb.org/t/p/w500/${movieDetailsData.poster_path}`}
         className="card-img-top"
         alt="Movie Title"
       />
@@ -16,25 +33,19 @@ const MovieDetails = () => {
     <div>
       <h2>Movie Title</h2>
       <p>
-        <i className="fas fa-star text-primary" />8 / 10
+        <i className="fas fa-star text-primary" />{movieDetailsData.vote_average} / 10
       </p>
       <p className="text-muted">Release Date: XX/XX/XXXX</p>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores atque
-        molestiae error debitis provident dolore hic odit, impedit sint,
-        voluptatum consectetur assumenda expedita perferendis obcaecati
-        veritatis voluptatibus. Voluptatum repellat suscipit, quae molestiae
-        cupiditate modi libero dolorem commodi obcaecati! Ratione quia corporis
-        recusandae delectus perspiciatis consequatur ipsam. Cumque omnis ad
-        recusandae.
+        {movieDetailsData.overview}
       </p>
       <h5>Genres</h5>
-      <ul className="list-group">
-        <li>Genre 1</li>
-        <li>Genre 2</li>
-        <li>Genre 3</li>
+            <ul className="list-group">
+              {movieDetailsData.genres.map(genre => (
+                <li key={genre.id}>{genre.name}</li>
+              ))}
       </ul>
-      <a href="#" target="_blank" className="btn">
+      <a href={movieDetailsData.homepage} target="_blank" className="btn">
         Visit Movie Homepage
       </a>
     </div>

@@ -20,7 +20,7 @@ const PopularMovies = () => {
   <div id="popular-movies" className="grid">
   {moviesData.map(data => (
     <div className="card" key={data.id}>
-    <a href="movie-details">
+    <a href={`movie-details/${data.id}`}>
       {data.poster_path ? <img
         src={`https://image.tmdb.org/t/p/w500/${data.poster_path}`}
         className="card-img-top"
