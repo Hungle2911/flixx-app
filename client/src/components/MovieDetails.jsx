@@ -38,11 +38,11 @@ const MovieDetails = () => {
       />
     </div>
     <div>
-      <h2>Movie Title</h2>
+      <h2>{movieDetailsData.title}</h2>
       <p>
         <i className="fas fa-star text-primary" />{movieDetailsData.vote_average} / 10 : ({movieDetailsData.vote_count} reviewers) 
       </p>
-      <p className="text-muted">Release Date: XX/XX/XXXX</p>
+      <p className="text-muted">Release Date: {movieDetailsData.release_date}</p>
       <p>
         {movieDetailsData.overview}
       </p>
@@ -61,20 +61,23 @@ const MovieDetails = () => {
     <h2>Movie Info</h2>
     <ul>
       <li>
-        <span className="text-secondary">Budget:</span> $1,000,000
+        <span className="text-secondary">Budget:</span> ${movieDetailsData.budget}
       </li>
       <li>
-        <span className="text-secondary">Revenue:</span> $2,000,000
+        <span className="text-secondary">Revenue:</span> ${movieDetailsData.revenue}
       </li>
       <li>
-        <span className="text-secondary">Runtime:</span> 90 minutes
+        <span className="text-secondary">Runtime:</span> {movieDetailsData.runtime} minutes
       </li>
       <li>
-        <span className="text-secondary">Status:</span> Released
+        <span className="text-secondary">Status:</span> {movieDetailsData.status}
       </li>
     </ul>
     <h4>Production Companies</h4>
-    <div className="list-group">Company 1, Company 2, Company 3</div>
+          <div className="list-group">
+            {movieDetailsData.production_companies.map(data => (
+              <span key={data.id}>/ {data.name}  </span>))}
+          </div>
   </div>
 </div>
 </section>
